@@ -1,0 +1,22 @@
+# Cloud Agent (Aider) Execution Settings
+
+# 1. Model Selection (Gemini 3 Flash or 3.1 Pro is recommended)
+model: gemini/gemini-3-flash-preview
+
+# 2. Context Auto-loading
+# Forces the AI to read and understand these documents before starting any task.
+read:
+  - project-config/project-goal.md
+  - ai-context/ai-system-prompt.md
+  - ai-context/00-software-engineering.md
+
+# 3. Behavior Control
+auto-commits: true        # Automatically create commits after code modifications
+dirty-commits: true       # Proceed even if there are uncommitted changes
+attribute-author: true    # Mark commits as authored by the AI
+attribute-committer: true # Mark commits as committed by the AI
+map-tokens: 2048          # Token allocation for repository structure mapping
+
+# 4. Interface & Output
+dark-mode: true
+stream: false             # Disable streaming for CI environments
