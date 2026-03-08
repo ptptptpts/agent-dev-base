@@ -1,0 +1,43 @@
+name: AI PR Reviewer
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: pip install -q -U google-genai PyYAML
+
+      - name: 🔍 Gemini AI Code Review
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch base branch to compare
+          git fetch origin ${{ github.base_ref }}
+          git diff origin/${{ github.base_ref }}...HEAD > changes.diff
+          
+          # Run externalized python script
+          python .github/scripts/ai_pr_reviewer.py
+          
+          # Post the review as a PR comment using GitHub CLI
+          if [ -f "review_comment.md" ]; then
+            gh pr comment ${{ github.event.pull_request.number }} --body-file review_comment.md
+          fi
