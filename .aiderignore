@@ -1,0 +1,28 @@
+# Files and directories to be ignored by the AI Agent
+
+# 1. Sensitive Information & Environment Variables
+.env*
+*.pem
+*.key
+
+# 2. Build Artifacts & Dependencies
+node_modules/
+dist/
+build/
+.next/
+.vercel/
+out/
+target/
+bin/
+obj/
+
+# 3. Package Lock Files (Let package managers handle these)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+poetry.lock
+
+# 4. Caches & Logs
+.cache/
+*.log
+.DS_Store
