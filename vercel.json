@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "github": {
+    "silent": false,
+    "enabled": true
+  },
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "regions": ["icn1"],
+  "installCommand": null,
+  "buildCommand": null,
+  "devCommand": null,
+  "outputDirectory": null
+}
